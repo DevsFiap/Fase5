@@ -1,9 +1,17 @@
+using Fase5.Infra.Data.Extensions;
+using Fase5.Domain.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Registrando os serviços de injeção de dependência
+builder.Services.AddEntityFramework(builder.Configuration);
+builder.Services.AddDomainServices();
+
 
 var app = builder.Build();
 
