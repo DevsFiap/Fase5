@@ -6,6 +6,6 @@ namespace Fase5.Domain.Services;
 
 public class PacienteDomainService(IUnitOfWork _unitOfWork) : BaseDomainService<Paciente, Guid>(_unitOfWork.PacienteRepository), IPacienteDomainService
 {
-    public async Task<Paciente?> ObterPorCpfAsync(string cpf)
+    public async Task<Paciente?> ObterPacientePorCpfAsync(string cpf)
         => await _unitOfWork.PacienteRepository.ObterPorCpfAsync(cpf);
 }

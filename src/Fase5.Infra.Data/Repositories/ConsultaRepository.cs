@@ -7,9 +7,9 @@ namespace Fase5.Infra.Data.Repositories;
 
 public class ConsultaRepository(DataContext _dataContext) : BaseRepository<Consulta, Guid>(_dataContext), IConsultaRepository
 {
-    public async Task<IEnumerable<Consulta>> ObterPorMedicoAsync(Guid medicoId)
+    public async Task<IEnumerable<Consulta>> GetConsultasByMedicoIdAsync(Guid medicoId)
         => await _dataContext.Set<Consulta>().AsNoTracking().Where(c => c.MedicoId == medicoId).ToListAsync();
 
-    public async Task<IEnumerable<Consulta>> ObterPorPacienteAsync(Guid pacienteId)
+    public async Task<IEnumerable<Consulta>> GetConsultasByPacienteIdAsync(Guid pacienteId)
         => await _dataContext.Set<Consulta>().AsNoTracking().Where(c => c.PacienteId == pacienteId).ToListAsync();
 }

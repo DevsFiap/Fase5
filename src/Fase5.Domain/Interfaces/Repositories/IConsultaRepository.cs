@@ -5,6 +5,6 @@ namespace Fase5.Domain.Interfaces.Repositories;
 
 public interface IConsultaRepository : IBaseRepository<Consulta, Guid>
 {
-    Task<IEnumerable<Consulta>> ObterPorMedicoAsync(Guid medicoId);
-    Task<IEnumerable<Consulta>> ObterPorPacienteAsync(Guid pacienteId);
+    Task<IEnumerable<Consulta>> GetConsultasByMedicoIdAsync(Guid medicoId);
+    Task<IEnumerable<Consulta>> GetConsultasByPacienteIdAsync(Guid pacienteId);
 }

@@ -5,5 +5,5 @@ namespace Fase5.Domain.Interfaces.Services;
 
 public interface IPacienteDomainService : IBaseDomainService<Paciente, Guid>
 {
-    Task<Paciente?> ObterPorCpfAsync(string cpf);
+    Task<Paciente?> ObterPacientePorCpfAsync(string cpf);
 }

@@ -4,10 +4,13 @@ using Fase5.Domain.Interfaces.Services;
 
 namespace Fase5.Domain.Services;
 
-public class HorarioDisponivelDomainService(IUnitOfWork _unitOfWork)
-    : BaseDomainService<HorarioDisponivel, Guid>(_unitOfWork.HorarioDisponivelRepository)
-    , IHorarioDisponivelDomainService
+public class HorarioDisponivelDomainService(IUnitOfWork uow)
+    : BaseDomainService<HorarioDisponivel, Guid>(uow.HorarioDisponivelRepository),
+      IHorarioDisponivelDomainService
 {
-    public async Task<bool> ExisteChoqueDeHorarioAsync(Guid medicoId, DateTime inicio, DateTime fim)
-        => await _unitOfWork.HorarioDisponivelRepository.ExisteChoqueDeHorarioAsync(medicoId, inicio, fim);
+    public Task<HorarioDisponivel?> ObterHorarioDisponivelAsync(Guid medicoId, DateTime dataHora)
+        => uow.HorarioDisponivelRepository.ObterHorarioDisponivelAsync(medicoId, dataHora);
+
+    public Task<bool> ExisteChoqueDeHorarioAsync(Guid medicoId, DateTime inicio, DateTime fim)
+        => uow.HorarioDisponivelRepository.ExisteChoqueDeHorarioAsync(medicoId, inicio, fim);
 }

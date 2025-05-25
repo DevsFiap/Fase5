@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fase5.Infra.Data.Repositories;
 
-public class UsuarioRepository(DataContext _dataContext) : BaseRepository<Usuario, Guid>(_dataContext), IUsuarioRepository
+public class UsuarioRepository(DataContext ctx) : BaseRepository<Usuario, Guid>(ctx), IUsuarioRepository
 {
-    public async Task<Usuario?> ObterPorLoginAsync(string login)
-        => await _dataContext.Set<Usuario>().AsNoTracking().FirstOrDefaultAsync(u => u.Login == login);
+    public Task<Usuario?> ObterPorLoginAsync(string login)
+        => ctx.Set<Usuario>().FirstOrDefaultAsync(u => u.Login == login);
 }
