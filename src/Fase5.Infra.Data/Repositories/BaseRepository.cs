@@ -4,33 +4,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fase5.Infra.Data.Repositories;
 
-public abstract class BaseRepository<TEntity, TKey>(DataContext dataContext) : IBaseRepository<TEntity, TKey>
+public abstract class BaseRepository<TEntity, TKey>(DataContext ctx)
+    : IBaseRepository<TEntity, TKey>
     where TEntity : class
 {
+    protected readonly DataContext _ctx = ctx;
+
     public virtual async Task<List<TEntity>> GetAllAsync()
-        => await dataContext.Set<TEntity>().AsNoTracking().ToListAsync();
+        => await _ctx.Set<TEntity>().AsNoTracking().ToListAsync();
 
     public virtual async Task<TEntity?> GetByIdAsync(TKey id)
-        => await dataContext.Set<TEntity>().FindAsync([id]);
+        => await _ctx.Set<TEntity>().FindAsync(id);
 
-    public virtual async Task CreateAsync(TEntity entity)
+    public virtual Task CreateAsync(TEntity entity)
     {
-        await dataContext.Set<TEntity>().AddAsync(entity);
-        await dataContext.SaveChangesAsync();
+        _ctx.Set<TEntity>().Add(entity);
+        return Task.CompletedTask;
     }
 
-    public virtual async Task UpdateAsync(TEntity entity)
+    public virtual Task UpdateAsync(TEntity entity)
     {
-        dataContext.Set<TEntity>().Update(entity);
-        await dataContext.SaveChangesAsync();
+        _ctx.Set<TEntity>().Update(entity);
+        return Task.CompletedTask;
     }
 
-    public virtual async Task DeleteAsync(TEntity entity)
+    public virtual Task DeleteAsync(TEntity entity)
     {
-        dataContext.Set<TEntity>().Remove(entity);
-        await dataContext.SaveChangesAsync();
+        _ctx.Set<TEntity>().Remove(entity);
+        return Task.CompletedTask;
     }
 
-    public void Dispose()
-        => dataContext.Dispose();
+    public void Dispose() 
+        => _ctx.Dispose();
 }

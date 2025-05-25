@@ -9,7 +9,7 @@ public class MedicoConfiguration : IEntityTypeConfiguration<Medico>
     public void Configure(EntityTypeBuilder<Medico> builder)
     {
         builder.ToTable("Medicos");
-        builder.HasBaseType<Usuario>();
+        builder.HasBaseType<Login>();
 
         builder.Property(m => m.CRM)
                .IsRequired()

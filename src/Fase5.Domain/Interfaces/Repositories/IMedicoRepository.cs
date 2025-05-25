@@ -6,5 +6,5 @@ namespace Fase5.Domain.Interfaces.Repositories;
 public interface IMedicoRepository : IBaseRepository<Medico, Guid>
 {
     Task<Medico?> ObterPorCrmAsync(string crm);
-    Task<List<Medico>> BuscarPorEspecialidadeAsync(string especialidade);
+    Task<IEnumerable<Medico>> BuscarPorEspecialidadeAsync(string especialidade);
 }

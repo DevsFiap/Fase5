@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fase5.Infra.Data.Repositories;
 
-public class PacienteRepository(DataContext _dataContext) : BaseRepository<Paciente, Guid>(_dataContext), IPacienteRepository
+public class PacienteRepository(DataContext ctx) : BaseRepository<Paciente, Guid>(ctx), IPacienteRepository
 {
-    public async Task<Paciente?> ObterPorCpfAsync(string cpf)
-        => await _dataContext.Set<Paciente>().AsNoTracking().FirstOrDefaultAsync(p => p.CPF == cpf);
+    public Task<Paciente?> ObterPorCpfAsync(string cpf)
+        => ctx.Set<Paciente>().FirstOrDefaultAsync(p => p.CPF == cpf);
 }

@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
     <UserSecretsId>3b6a6cd0-d7b2-4d7a-98fe-70049564d776</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
@@ -20,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fase5.Application\Fase5.Application.csproj" />
     <ProjectReference Include="..\Fase5.Infra.Data\Fase5.Infra.Data.csproj" />
+    <ProjectReference Include="..\Fase5.Infra.Security\Fase5.Infra.Security.csproj" />
   </ItemGroup>
 
   <ItemGroup>

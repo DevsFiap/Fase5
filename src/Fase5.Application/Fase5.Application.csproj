@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Mappings\" />
-    <Folder Include="Dto\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fase5.Domain\Fase5.Domain.csproj" />
+    <ProjectReference Include="..\Fase5.Infra.Security\Fase5.Infra.Security.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ public class PacienteConfiguration : IEntityTypeConfiguration<Paciente>
     public void Configure(EntityTypeBuilder<Paciente> builder)
     {
         builder.ToTable("Pacientes");
-        builder.HasBaseType<Usuario>();
+        builder.HasBaseType<Login>();
 
         builder.Property(p => p.CPF)
                .IsRequired()

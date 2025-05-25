@@ -9,9 +9,9 @@ public interface IUnitOfWork : IDisposable
 
     Task SaveChangesAsync();
 
-    void BeginTransaction();
-    void Commit();
-    void Rollback();
+    Task BeginTransactionAsync();
+    Task CommitAsync();
+    Task RollbackAsync();
 
     #endregion
 

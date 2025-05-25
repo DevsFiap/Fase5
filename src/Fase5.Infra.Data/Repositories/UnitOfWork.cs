@@ -4,32 +4,53 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Fase5.Infra.Data.Repositories;
 
-public class UnitOfWork(DataContext _dataContext) : IUnitOfWork
+public sealed class UnitOfWork(DataContext ctx) : IUnitOfWork
 {
+    private readonly DataContext _ctx = ctx;
     private IDbContextTransaction? _transaction;
 
-    public void BeginTransaction()
-        => _transaction = _dataContext.Database.BeginTransaction();
+    //Repositórios
+    private IConsultaRepository? _consultaRepo;
+    public IConsultaRepository ConsultaRepository
+        => _consultaRepo ??= new ConsultaRepository(_ctx);
 
-    public void Commit()
-        => _transaction?.Commit();
+    private IHorarioDisponivelRepository? _horarioRepo;
+    public IHorarioDisponivelRepository HorarioDisponivelRepository
+        => _horarioRepo ??= new HorarioDisponivelRepository(_ctx);
 
-    public void Rollback()
-        => _transaction?.Rollback();
+    public IMedicoRepository MedicoRepository => _medicoRepo ??= new MedicoRepository(_ctx);
+    private IMedicoRepository? _medicoRepo;
 
-    public async Task SaveChangesAsync()
-        => await _dataContext.SaveChangesAsync();
+    public IPacienteRepository PacienteRepository => _pacienteRepo ??= new PacienteRepository(_ctx);
+    private IPacienteRepository? _pacienteRepo;
 
-    public IConsultaRepository ConsultaRepository => new ConsultaRepository(_dataContext);
+    public IUsuarioRepository UsuarioRepository => _usuarioRepo ??= new UsuarioRepository(_ctx);
+    private IUsuarioRepository? _usuarioRepo;
 
-    public IHorarioDisponivelRepository HorarioDisponivelRepository => new HorarioDisponivelRepository(_dataContext);
+    //Transações
+    public async Task BeginTransactionAsync()
+        => _transaction = await _ctx.Database.BeginTransactionAsync();
 
-    public IMedicoRepository MedicoRepository => new MedicoRepository(_dataContext);
+    public async Task CommitAsync()
+    {
+        await _ctx.SaveChangesAsync();
+        if (_transaction is not null)
+            await _transaction.CommitAsync();
+    }
 
-    public IPacienteRepository PacienteRepository => new PacienteRepository(_dataContext);
+    public async Task RollbackAsync()
+    {
+        if (_transaction is not null)
+            await _transaction.RollbackAsync();
+    }
 
-    public IUsuarioRepository UsuarioRepository => new UsuarioRepository(_dataContext);
+    public async Task SaveChangesAsync() 
+        => await _ctx.SaveChangesAsync();
+
 
     public void Dispose()
-    => _transaction.Dispose();
+    {
+        _transaction?.Dispose();
+        _ctx.Dispose();
+    }
 }

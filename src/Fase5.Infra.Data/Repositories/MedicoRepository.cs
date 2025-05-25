@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fase5.Infra.Data.Repositories;
 
-public class MedicoRepository(DataContext _dataContext) : BaseRepository<Medico, Guid>(_dataContext), IMedicoRepository
+public class MedicoRepository(DataContext ctx) : BaseRepository<Medico, Guid>(ctx), IMedicoRepository
 {
-    public async Task<Medico?> ObterPorCrmAsync(string crm)
-        => await _dataContext.Set<Medico>().AsNoTracking().FirstOrDefaultAsync(m => m.CRM == crm);
+    public Task<Medico?> ObterPorCrmAsync(string crm)
+        => ctx.Set<Medico>()
+              .FirstOrDefaultAsync(m => m.CRM == crm);
 
-    public async Task<List<Medico>> BuscarPorEspecialidadeAsync(string esp)
-        => await _dataContext.Set<Medico>().AsNoTracking().Where(m => m.Especialidade == esp).ToListAsync();
+    public async Task<IEnumerable<Medico>> BuscarPorEspecialidadeAsync(string especialidade)
+        => await ctx.Set<Medico>()
+                    .Where(m => m.Especialidade == especialidade)
+                    .ToListAsync();
 }

@@ -1,5 +1,4 @@
 ﻿using Fase5.Domain.Enuns;
-using System.Text.Json.Serialization;
 
 namespace Fase5.Domain.Entities;
 

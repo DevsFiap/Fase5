@@ -5,5 +5,7 @@ namespace Fase5.Domain.Interfaces.Services;
 
 public interface IUsuarioDomainService : IBaseDomainService<Usuario, Guid>
 {
-    Task<Usuario?> ObterPorLoginAsync(string login);
+    Task<Usuario?> ObterPorCpfAsync(string cpf);
+    Task<Usuario?> ObterPorCrmAsync(string crm);
+    Task<bool> VerificarSenhaAsync(Usuario usuario, string senha);
 }
