@@ -10,19 +10,21 @@ public sealed class UnitOfWork(DataContext ctx) : IUnitOfWork
     private IDbContextTransaction? _transaction;
 
     //Repositórios
-    private IConsultaRepository? _consultaRepo;
-    public IConsultaRepository ConsultaRepository
-        => _consultaRepo ??= new ConsultaRepository(_ctx);
+    private IFuncionarioRepository? _funcRepo;
+    public IFuncionarioRepository FuncionarioRepository
+        => _funcRepo ??= new FuncionarioRepository(_ctx);
 
-    private IHorarioDisponivelRepository? _horarioRepo;
-    public IHorarioDisponivelRepository HorarioDisponivelRepository
-        => _horarioRepo ??= new HorarioDisponivelRepository(_ctx);
+    private IClienteRepository? _cliRepo;
+    public IClienteRepository ClienteRepository
+        => _cliRepo ??= new ClienteRepository(_ctx);
 
-    public IMedicoRepository MedicoRepository => _medicoRepo ??= new MedicoRepository(_ctx);
-    private IMedicoRepository? _medicoRepo;
+    private IProdutoRepository? _prodRepo;
+    public IProdutoRepository ProdutoRepository
+        => _prodRepo ??= new ProdutoRepository(_ctx);
 
-    public IPacienteRepository PacienteRepository => _pacienteRepo ??= new PacienteRepository(_ctx);
-    private IPacienteRepository? _pacienteRepo;
+    private IPedidoRepository? _pedidoRepo;
+    public IPedidoRepository PedidoRepository
+        => _pedidoRepo ??= new PedidoRepository(_ctx);
 
     public IUsuarioRepository UsuarioRepository => _usuarioRepo ??= new UsuarioRepository(_ctx);
     private IUsuarioRepository? _usuarioRepo;

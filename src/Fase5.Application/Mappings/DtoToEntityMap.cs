@@ -12,24 +12,24 @@ public class DtoToEntityMap : Profile
     public DtoToEntityMap()
     {
         #region Médico
-        CreateMap<CreateMedicoRequest, Medico>()
+        CreateMap<CreateMedicoRequest, Cliente>()
             .ForMember(d => d.Id, opt => opt.MapFrom(_ => Guid.NewGuid()));
 
-        CreateMap<UpdateMedicoRequest, Medico>()
+        CreateMap<UpdateMedicoRequest, Cliente>()
             .ForAllMembers(opt => opt.Condition((src, _, srcMember) => srcMember is not null));
 
-        CreateMap<Medico, MedicoDetailResponse>();
-        CreateMap<Medico, MedicoListItemResponse>();
+        CreateMap<Cliente, MedicoDetailResponse>();
+        CreateMap<Cliente, MedicoListItemResponse>();
         #endregion
 
         #region Paciente
-        CreateMap<CreatePacienteRequest, Paciente>()
+        CreateMap<CreatePacienteRequest, Funcionario>()
             .ForMember(d => d.Id, opt => opt.MapFrom(_ => Guid.NewGuid()));
 
-        CreateMap<UpdatePacienteRequest, Paciente>()
+        CreateMap<UpdatePacienteRequest, Funcionario>()
             .ForAllMembers(opt => opt.Condition((src, _, val) => val is not null));
 
-        CreateMap<Paciente, PacienteResponse>();
+        CreateMap<Funcionario, PacienteResponse>();
         #endregion
     }
 }

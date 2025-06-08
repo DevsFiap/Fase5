@@ -14,8 +14,8 @@ public static class SwaggerDocExtension
             new OpenApiInfo
             {
                 Version = "v1",
-                Title = "API - HACKATHON 4NETT",
-                Description = "API REST para cadastro de consultas médicas",
+                Title = "API - FastTech Foods",
+                Description = "API REST para delivery de alimentos",
                 Contact = new OpenApiContact
                 {
                     Name = "FIAP",
@@ -68,7 +68,7 @@ public static class SwaggerDocExtension
         app.UseDeveloperExceptionPage();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "API - HACKATHON 4NETT");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "API - FastTech Foods");
         });
 
         return app;

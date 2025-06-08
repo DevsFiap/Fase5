@@ -2,6 +2,6 @@
 
 public enum PerfilUsuario
 {
-    Medico = 1, 
-    Paciente = 2
+    Cliente = 0,
+    Funcionario = 1
 }
