@@ -14,6 +14,10 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsuarioConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClienteConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(FuncionarioConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ItemPedidoConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidoConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProdutoConfiguration).Assembly);
     }
 }

@@ -6,22 +6,17 @@
 public interface IUnitOfWork : IDisposable
 {
     #region Gerenciamento de transações
-
     Task SaveChangesAsync();
-
     Task BeginTransactionAsync();
     Task CommitAsync();
     Task RollbackAsync();
-
     #endregion
 
     #region Propriedades para acesso aos repositórios
-
-    IConsultaRepository ConsultaRepository { get; }
-    IHorarioDisponivelRepository HorarioDisponivelRepository{ get; }
-    IMedicoRepository MedicoRepository { get; }
-    IPacienteRepository PacienteRepository { get; }
+    IFuncionarioRepository FuncionarioRepository { get; }
+    IClienteRepository ClienteRepository { get; }
+    IProdutoRepository ProdutoRepository { get; }
+    IPedidoRepository PedidoRepository { get; }
     IUsuarioRepository UsuarioRepository { get; }
-
     #endregion
 }

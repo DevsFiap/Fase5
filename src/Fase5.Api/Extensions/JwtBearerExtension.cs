@@ -13,7 +13,7 @@ public static class JwtBearerExtension
         this IServiceCollection services, IConfiguration config)
     {
         services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
-        services.AddTransient<IAuthorizationSecurity, AuthorizationSecurity>();
+        services.AddTransient<ITokenService, TokenService>();
 
         var secret = config.GetValue<string>("JwtSettings:SecretKey")!;
         var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
