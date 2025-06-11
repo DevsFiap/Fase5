@@ -20,4 +20,23 @@ public sealed class ClienteDomainService(IUnitOfWork uow, IPasswordHashService h
         var c = await GetByIdAsync(id);
         return c is not null && hash.Verify(c.Senha!, senha);
     }
+
+    public override async Task AddAsync(Cliente entity)
+    {
+        entity.Senha = hash.Hash(entity.Senha!);          // regra extra
+        await base.AddAsync(entity);                       // grava no DbContext
+        await uow.CommitAsync();                          // persiste
+    }
+
+    public override async Task ModifyAsync(Cliente entity)
+    {
+        await base.ModifyAsync(entity);
+        await uow.CommitAsync();
+    }
+
+    public override async Task RemoveAsync(Cliente entity)
+    {
+        await base.RemoveAsync(entity);
+        await uow.CommitAsync();
+    }
 }

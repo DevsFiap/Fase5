@@ -1,4 +1,6 @@
-﻿using Fase5.Application.Mappings;
+﻿using Fase5.Application.Interfaces;
+using Fase5.Application.Mappings;
+using Fase5.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fase5.Application.Extensions;
@@ -10,11 +12,11 @@ public static class AppServicesExtension
 {
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
-        //services.AddScoped<IConsultaAppService, ConsultaAppService>();
-        //services.AddScoped<IHorarioDisponivelAppService, HorarioDisponivelAppService>();
-        //services.AddScoped<IMedicoAppService, MedicoAppService>();
-        //services.AddScoped<IPacienteAppService, PacienteAppService>();
-        //services.AddScoped<IUsuarioAppService, UsuarioAppService>();
+        services.AddScoped<IFuncionarioAppService, FuncionarioAppService>();
+        services.AddScoped<IClienteAppService, ClienteAppService>();
+        services.AddScoped<IProdutoAppService, ProdutoAppService>();
+        services.AddScoped<IPedidoAppService, PedidoAppService>();
+        services.AddScoped<ILoginAppService, LoginAppService>();
 
         //AutoMapper
         services.AddAutoMapper(typeof(DtoToEntityMap));
