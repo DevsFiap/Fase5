@@ -1,3 +1,4 @@
+using Fase5.Api.Endpoints;
 using Fase5.Api.Extensions;
 using Fase5.Application.Extensions;
 using Fase5.Domain.Extensions;
@@ -33,9 +34,11 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-/* ---------- Minimal APIs ---------- */
-//app.MapMedicosEndpoints();
-//app.MapAuthEndpoints();
+//Minimal APIs
+app.MapAuthEndpoints();
+app.MapClientesEndpoints();
+app.MapFuncionariosEndpoints();
+app.MapProdutosEndpoints();
+app.MapPedidosEndpoints();
 
-/* ---------- Run ---------- */
 app.Run();

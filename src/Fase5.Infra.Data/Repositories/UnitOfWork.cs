@@ -26,9 +26,6 @@ public sealed class UnitOfWork(DataContext ctx) : IUnitOfWork
     public IPedidoRepository PedidoRepository
         => _pedidoRepo ??= new PedidoRepository(_ctx);
 
-    public IUsuarioRepository UsuarioRepository => _usuarioRepo ??= new UsuarioRepository(_ctx);
-    private IUsuarioRepository? _usuarioRepo;
-
     //Transações
     public async Task BeginTransactionAsync()
         => _transaction = await _ctx.Database.BeginTransactionAsync();

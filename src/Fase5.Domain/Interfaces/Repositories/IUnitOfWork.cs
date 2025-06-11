@@ -17,6 +17,5 @@ public interface IUnitOfWork : IDisposable
     IClienteRepository ClienteRepository { get; }
     IProdutoRepository ProdutoRepository { get; }
     IPedidoRepository PedidoRepository { get; }
-    IUsuarioRepository UsuarioRepository { get; }
     #endregion
 }
