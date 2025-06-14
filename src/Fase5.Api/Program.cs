@@ -5,6 +5,7 @@ using Fase5.Application.Extensions;
 using Fase5.Domain.Extensions;
 using Fase5.Infra.Data.Extensions;
 using Fase5.Infra.Security.Extensions;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,18 @@ builder.Services.AddDomainServices();
 builder.Services.AddAppServices();
 builder.Services.AddSecurityServices();
 
+builder.Services.AddMassTransit(x =>
+{
+    x.SetKebabCaseEndpointNameFormatter();
+    x.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(builder.Configuration["Rabbit__Host"] ?? "rabbitmq");
+        cfg.ConfigureEndpoints(ctx);
+    });
+});
+
+builder.Services.AddSingleton<IPublishEndpoint>(sp => sp.GetRequiredService<IBus>());
+builder.Services.AddMassTransitHostedService();
 
 builder.Services.AddAuthorization(opt =>
 {

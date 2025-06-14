@@ -17,7 +17,7 @@ public static class AuthEndpoints
         })
         .AllowAnonymous()
         .WithTags("Authorization")
-        .WithSummary("Login único (CPF, e-mail ou CRM)");
+        .WithSummary("Login único (CPF ou e-mail)");
 
         return app;
     }

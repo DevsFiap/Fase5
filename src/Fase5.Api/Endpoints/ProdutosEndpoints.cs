@@ -34,7 +34,7 @@ public static class ProdutosEndpoints
         group.MapPost("/", async (CreateProdutoRequest dto, IProdutoAppService svc) =>
         {
             var id = await svc.CriarAsync(dto);
-            return Results.Created($"/produtos/{id}", new { id });
+            return TypedResults.Created($"/produtos/{id}", new { id });
         })
         .RequireAuthorization("gerente")
         .WithOpenApi(operation => new OpenApiOperation(operation)
