@@ -4,14 +4,17 @@ using Fase5.Application.Dtos.Pedido.Response;
 using Fase5.Application.Interfaces;
 using Fase5.Domain.Entities;
 using Fase5.Domain.Enuns;
+using Fase5.Domain.Events;
 using Fase5.Domain.Interfaces.Repositories;
+using MassTransit;
 
 namespace Fase5.Application.Services;
 
 /// <summary>Orquestra criação e fluxo de pedidos.</summary>
 public class PedidoAppService(
         IUnitOfWork uow,
-        IMapper map) : IPedidoAppService
+        IMapper map,
+        IPublishEndpoint _publish) : IPedidoAppService
 {
     public async Task<PedidoResponse> CriarAsync(int clienteId, CreatePedidoRequest dto)
     {
@@ -43,6 +46,8 @@ public class PedidoAppService(
 
             await uow.PedidoRepository.CreateAsync(pedido);
             await uow.CommitAsync();
+
+            await _publish.Publish(new OrderCreated(pedido.Id, pedido.CriadoEm));
 
             return map.Map<PedidoResponse>(pedido);
         }

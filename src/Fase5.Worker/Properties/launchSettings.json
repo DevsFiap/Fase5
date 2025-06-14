@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Fase5.Worker": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

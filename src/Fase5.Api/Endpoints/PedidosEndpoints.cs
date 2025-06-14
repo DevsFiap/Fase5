@@ -14,7 +14,6 @@ public static class PedidosEndpoints
                         .WithTags("Pedidos")
                         .RequireAuthorization();
 
-        // Helper local para obter o ID do usuário logado (ClaimTypes.NameIdentifier).
         static int GetUserId(HttpContext ctx) =>
             int.Parse(ctx.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
@@ -25,7 +24,7 @@ public static class PedidosEndpoints
             CreatePedidoRequest dto,
             IPedidoAppService svc) =>
         {
-            var clienteId = GetUserId(http); // ID do cliente do token.
+            var clienteId = GetUserId(http);
             var resp = await svc.CriarAsync(clienteId, dto);
             return Results.Created($"/pedidos/{resp.Id}", resp);
         })

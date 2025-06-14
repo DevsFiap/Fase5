@@ -19,7 +19,7 @@ public static class ClientesEndpoints
             IClienteAppService svc) =>
         {
             var id = await svc.CriarAsync(dto);
-            return Results.Created($"/clientes/{id}", new { id });
+            return TypedResults.Created($"/clientes/{id}", new { id });
         })
         .AllowAnonymous()
         .WithOpenApi(operation => new OpenApiOperation(operation)
