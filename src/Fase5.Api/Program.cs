@@ -23,7 +23,7 @@ builder.Services.AddMassTransit(x =>
     x.SetKebabCaseEndpointNameFormatter();
     x.UsingRabbitMq((ctx, cfg) =>
     {
-        cfg.Host(builder.Configuration["Rabbit__Host"] ?? "rabbitmq");
+        cfg.Host(builder.Configuration["RabbitMQ:Host"] ?? "rabbitmq");
         cfg.ConfigureEndpoints(ctx);
     });
 });
