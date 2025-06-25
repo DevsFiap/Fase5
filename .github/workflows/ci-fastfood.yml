@@ -16,8 +16,8 @@ jobs:
 
     env:
       Solution_Name: src/Fase5.sln
-      Api_Path: src/Fase05.Api/Fase5.Api.csproj
-      Worker_Path: src/Fase05.Worker/Fase5.Worker.csproj
+      Api_Path: src/Fase5.Api/Fase5.Api.csproj
+      Worker_Path: src/Fase5.Worker/Fase5.Worker.csproj
 
     steps:
     - name: Checkout
