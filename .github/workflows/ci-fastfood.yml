@@ -1,0 +1,59 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: ubuntu-latest
+
+    env:
+      Solution_Name: src/Fase05.sln
+      Api_Path: src/Fase05.Api/Fase5.Api.csproj
+      Worker_Path: src/Fase05.Worker/Fase5.Worker.csproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore solution
+      run: dotnet restore ${{ env.Solution_Name }}
+
+    - name: Build solution
+      run: dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }} --no-restore
+
+    # Publish API
+    - name: Publish API
+      run: dotnet publish ${{ env.Api_Path }} --configuration ${{ matrix.configuration }} --output ./output/api
+
+    # Publish Worker
+    - name: Publish Worker
+      run: dotnet publish ${{ env.Worker_Path }} --configuration ${{ matrix.configuration }} --output ./output/worker
+
+    # Upload API artifact
+    - name: Upload API artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: api-artifact
+        path: ./output/api
+
+    # Upload Worker artifact
+    - name: Upload Worker artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: worker-artifact
+        path: ./output/worker
