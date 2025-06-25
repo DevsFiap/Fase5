@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      Solution_Name: src/Fase05.sln
+      Solution_Name: src/Fase5.sln
       Api_Path: src/Fase05.Api/Fase5.Api.csproj
       Worker_Path: src/Fase05.Worker/Fase5.Worker.csproj
 
