@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  labels:
+    app: worker
+  annotations:
+    owner: grupo11-fiap
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - name: worker
+          image: fiapacrfase05.azurecr.io/worker:dev
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: log-volume
+              mountPath: /app/logs
+      volumes:
+        - name: log-volume
+          emptyDir: {}
+      imagePullSecrets:
+        - name: acr-secret
