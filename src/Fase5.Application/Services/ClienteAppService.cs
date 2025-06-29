@@ -12,7 +12,7 @@ public class ClienteAppService(
         IMapper _map) : IClienteAppService
 {
     public async Task<ClienteResponse?> GetByIdAsync(int id)
-    => _map.Map<ClienteResponse>(await _uow.ClienteRepository.GetByIdAsync(id));
+        => _map.Map<ClienteResponse>(await _uow.ClienteRepository.GetByIdAsync(id));
 
     public async Task<IEnumerable<ClienteResponse>> GetAllAsync()
         => _map.Map<IEnumerable<ClienteResponse>>(await _uow.ClienteRepository.GetAllAsync());
