@@ -41,6 +41,8 @@ spec:
           env:
             - name: GF_SECURITY_ADMIN_PASSWORD
               value: admin
+            - name: GF_INSTALL_PLUGINS
+              value: alexanderzobnin-zabbix-app
           resources:
             requests:
               memory: "128Mi"
