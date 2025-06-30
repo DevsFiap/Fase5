@@ -33,7 +33,7 @@ spec:
             - name: MYSQL_USER
               value: zabbix
             - name: MYSQL_PASSWORD
-              value: zabbix
+              value: zabbixpass
             - name: MYSQL_DATABASE
               value: zabbix
           ports:
@@ -47,7 +47,7 @@ spec:
             - name: MYSQL_USER
               value: zabbix
             - name: MYSQL_PASSWORD
-              value: zabbix
+              value: zabbixpass
             - name: MYSQL_DATABASE
               value: zabbix
             - name: ZBX_SERVER_HOST
