@@ -13,6 +13,17 @@ spec:
       labels:
         app: zabbix
     spec:
+      initContainers:
+        - name: wait-for-mysql
+          image: busybox:1.35
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z zabbix-mysql 3306; do
+                echo "Waiting for MySQL..."
+                sleep 5
+              done
       containers:
         - name: zabbix-server
           image: zabbix/zabbix-server-mysql:alpine-6.4-latest
