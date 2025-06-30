@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-zabbix-plugin-config
+  namespace: default
+data:
+  zabbix.yaml: |
+    apiVersion: 1
+    apps:
+      - type: alexanderzobnin-zabbix-app
+        enabled: true
