@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix
+  template:
+    metadata:
+      labels:
+        app: zabbix
+    spec:
+      containers:
+        - name: zabbix-server
+          image: zabbix/zabbix-server-mysql:alpine-6.4-latest
+          env:
+            - name: DB_SERVER_HOST
+              value: zabbix-mysql
+            - name: MYSQL_USER
+              value: zabbix
+            - name: MYSQL_PASSWORD
+              value: zabbix
+            - name: MYSQL_DATABASE
+              value: zabbix
+          ports:
+            - containerPort: 10051
+
+        - name: zabbix-frontend
+          image: zabbix/zabbix-web-nginx-mysql:alpine-6.4-latest
+          env:
+            - name: DB_SERVER_HOST
+              value: zabbix-mysql
+            - name: MYSQL_USER
+              value: zabbix
+            - name: MYSQL_PASSWORD
+              value: zabbix
+            - name: MYSQL_DATABASE
+              value: zabbix
+            - name: ZBX_SERVER_HOST
+              value: zabbix-server
+            - name: PHP_TZ
+              value: America/Sao_Paulo
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: provisioning
+              mountPath: /etc/zabbix/provisioning/hosts/api-monitor.yaml
+              subPath: api-monitor.yaml
+
+      volumes:
+        - name: provisioning
+          configMap:
+            name: zabbix-provisioning
