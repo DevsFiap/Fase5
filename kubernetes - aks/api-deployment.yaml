@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: fiapacrfase05.azurecr.io/api:dev
+          image: fiapacrfase05.azurecr.io/api:qa
           ports:
             - containerPort: 8080
           env:
@@ -56,9 +56,6 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-          volumeMounts:
-            - name: grafana-storage
-              mountPath: /var/lib/grafana
       volumes:
         - name: grafana-storage
           persistentVolumeClaim:

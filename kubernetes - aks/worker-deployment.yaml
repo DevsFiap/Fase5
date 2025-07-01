@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: worker
-          image: fiapacrfase05.azurecr.io/worker:dev
+          image: fiapacrfase05.azurecr.io/worker:qa
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           resources:
