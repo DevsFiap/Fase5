@@ -9,6 +9,6 @@ data:
     Server=zabbix-fiap.e8fjgufge3dqfubu.brazilsouth.azurecontainer.io
     ServerActive=zabbix-fiap.e8fjgufge3dqfubu.brazilsouth.azurecontainer.io
     HostnameItem=system.hostname
-    Hostname=${HOSTNAME}                          
     ListenPort=10050
+    LogType=console
     Include=/etc/zabbix/zabbix_agentd.d/*.conf

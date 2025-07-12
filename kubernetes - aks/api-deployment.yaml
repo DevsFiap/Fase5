@@ -32,7 +32,7 @@ spec:
               memory: "256Mi"
               cpu: "500m"
         - name: zabbix-agent
-          image: zabbix/zabbix-agent:6.0
+          image: zabbix/zabbix-agent
           env:
             - name: HOSTNAME
               valueFrom:
