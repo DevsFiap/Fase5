@@ -32,6 +32,28 @@ spec:
               memory: "256Mi"
               cpu: "500m"
 
+        - name: zabbix-agent
+          image: zabbix/zabbix-agent:6.0
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+            - name: agent
+              containerPort: 10050
+          volumeMounts:
+            - name: zabbix-agent-config
+              mountPath: /etc/zabbix/zabbix_agentd.conf
+              subPath: zabbix_agentd.conf
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+
         - name: grafana
           image: grafana/grafana
           securityContext:
@@ -57,6 +79,9 @@ spec:
               memory: "256Mi"
               cpu: "500m"
       volumes:
+        - name: zabbix-agent-config
+          configMap:
+            name: zabbix-agent-config
         - name: grafana-storage
           persistentVolumeClaim:
             claimName: grafana-pvc
