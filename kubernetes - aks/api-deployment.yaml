@@ -19,6 +19,7 @@ spec:
       containers:
         - name: api
           image: fiapacrfase05.azurecr.io/api:qa
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
