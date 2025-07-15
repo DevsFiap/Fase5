@@ -13,7 +13,7 @@ namespace Fase5.Infra.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Funcionarios",
                 columns: new[] { "Id", "Cargo", "Email", "Nome", "Perfil", "Senha" },
-                values: new object[] { 1, 2, "admin@fasttech.com", "Administrador", 1, "AQAAAAIAAYagAAAAEKtcXtkr3bHKt32KXMnaCWyEFmBrXEoWj2oSNOATCjBnHpidrxtvDHWANLCXtAsyYw==" });
+                values: new object[] { 2, 2, "admin@fasttech.com", "Administrador", 1, "AQAAAAIAAYagAAAAEKtcXtkr3bHKt32KXMnaCWyEFmBrXEoWj2oSNOATCjBnHpidrxtvDHWANLCXtAsyYw==" });
         }
 
         /// <inheritdoc />

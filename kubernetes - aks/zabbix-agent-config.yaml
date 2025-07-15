@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zabbix-agent-config
+  namespace: default                              
+data:
+  zabbix_agentd.conf: |
+    ### Zabbix Agent configuration ###
+    Server=zabbix-fiap.e8fjgufge3dqfubu.brazilsouth.azurecontainer.io
+    ServerActive=zabbix-fiap.e8fjgufge3dqfubu.brazilsouth.azurecontainer.io
+    HostnameItem=system.hostname
+    Hostname=${HOSTNAME}   
+    ListenPort=10050
+    LogType=console
+    Include=/etc/zabbix/zabbix_agentd.d/*.conf

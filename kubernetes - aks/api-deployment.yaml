@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: fiapacrfase05.azurecr.io/api:dev
+          image: fiapacrfase05.azurecr.io/api:qa
           ports:
             - containerPort: 8080
           env:
@@ -31,7 +31,27 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-
+        - name: zabbix-agent
+          image: zabbix/zabbix-agent
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+            - name: agent
+              containerPort: 10050
+          volumeMounts:
+            - name: zabbix-agent-config
+              mountPath: /etc/zabbix/zabbix_agentd.conf
+              subPath: zabbix_agentd.conf
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
         - name: grafana
           image: grafana/grafana
           securityContext:
@@ -41,6 +61,14 @@ spec:
           env:
             - name: GF_SECURITY_ADMIN_PASSWORD
               value: admin
+            - name: GF_INSTALL_PLUGINS
+              value: alexanderzobnin-zabbix-app
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+            - name: grafana-zabbix-config
+              mountPath: /etc/grafana/provisioning/plugins/zabbix.yaml
+              subPath: zabbix.yaml
           resources:
             requests:
               memory: "128Mi"
@@ -48,13 +76,16 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-          volumeMounts:
-            - name: grafana-storage
-              mountPath: /var/lib/grafana
       volumes:
+        - name: zabbix-agent-config
+          configMap:
+            name: zabbix-agent-config
         - name: grafana-storage
           persistentVolumeClaim:
             claimName: grafana-pvc
+        - name: grafana-zabbix-config
+          configMap:
+            name: grafana-zabbix-plugin-config
 
       imagePullSecrets:
         - name: acr-secret

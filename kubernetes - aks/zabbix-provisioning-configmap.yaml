@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zabbix-provisioning
+  namespace: default
+data:
+  api-monitor.yaml: |
+    groups:
+      - name: "API Monitoring"
+    hosts:
+      - host: "api-74-163-192-191"
+        name: "API Server"
+        interfaces:
+          - type: 1
+            main: true
+            useip: true
+            ip: "74.163.192.191"
+            dns: ""
+            port: "80"
+        templates:
+          - name: "Template App HTTP Service"
+    httptest:
+      - name: "API Root Health Check"
+        host: "api-74-163-192-191"
+        delay: 60
+        steps:
+          - name: "GET /"
+            url: "http://74.163.192.191/"
+            required: ""
+            status_codes: "200"

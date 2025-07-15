@@ -39,6 +39,14 @@ spec:
           env:
             - name: GF_SECURITY_ADMIN_PASSWORD
               value: admin
+            - name: GF_INSTALL_PLUGINS
+              value: alexanderzobnin-zabbix-app
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+            - name: grafana-zabbix-config
+              mountPath: /etc/grafana/provisioning/plugins/zabbix.yaml
+              subPath: zabbix.yaml
           resources:
             requests:
               memory: "128Mi"
@@ -53,6 +61,9 @@ spec:
         - name: grafana-storage
           persistentVolumeClaim:
             claimName: grafana-pvc
+        - name: grafana-zabbix-config
+          configMap:
+            name: grafana-zabbix-plugin-config
 
       imagePullSecrets:
         - name: acr-secret
