@@ -41,7 +41,8 @@ public class PedidoAppService(
             {
                 ClienteId = clienteId,
                 Entrega = dto.Entrega,
-                Itens = itens
+                Itens = itens,
+                Status = StatusPedido.Pendente
             };
 
             await uow.PedidoRepository.CreateAsync(pedido);

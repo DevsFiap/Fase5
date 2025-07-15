@@ -34,7 +34,7 @@ builder.Services.AddMassTransitHostedService();
 builder.Services.AddAuthorization(opt =>
 {
     opt.AddPolicy("gerente", p => p.RequireRole("gerente"));
-    opt.AddPolicy("cozinha", p => p.RequireRole("cozinha", "gerente"));
+    opt.AddPolicy("cozinha", p => p.RequireRole("cozinha"));
     opt.AddPolicy("cliente", p => p.RequireRole("cliente"));
 });
 

@@ -61,7 +61,7 @@ public static class PedidosEndpoints
             var lista = await svc.ListarPorStatusAsync(status);
             return Results.Ok(lista);
         })
-        .RequireAuthorization("cozinha,gerente")
+        .RequireAuthorization("cozinha")
         .WithOpenApi(operation => new OpenApiOperation(operation)
         {
             Summary = "Lista pedidos por status específico. Requer permissão de cozinha ou gerente."
@@ -81,7 +81,7 @@ public static class PedidosEndpoints
 
             return Results.Ok(resp);
         })
-        .RequireAuthorization("cozinha,gerente")
+        .RequireAuthorization("cozinha")
         .WithOpenApi(operation => new OpenApiOperation(operation)
         {
             Summary = "Atualiza o status de um pedido (aceitar ou rejeitar). Requer permissão de cozinha ou gerente."

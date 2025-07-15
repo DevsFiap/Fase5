@@ -20,11 +20,11 @@ public sealed class OrderCreatedConsumer(IUnitOfWork uow, ILogger<OrderCreatedCo
             return;
         }
 
-        pedido.Status = StatusPedido.EmPreparo;
+        pedido.Status = StatusPedido.Pendente;
 
         await uow.PedidoRepository.UpdateAsync(pedido);
         await uow.CommitAsync();
 
-        log.LogInformation("✅ Pedido {Id} atualizado para status EmPreparo e salvo.", ctx.Message.PedidoId);
+        log.LogInformation("✅ Pedido {Id} atualizado para status Pendente e salvo.", ctx.Message.PedidoId);
     }
 }
