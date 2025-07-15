@@ -1,6 +1,7 @@
 # Fase5 - FastTech Foods – Plataforma de Pedidos (Hackathon)
 
 MVP desenvolvido pelos alunos do curso Arquitetura de Sistemas .NET 
+Video de apresentação do projeto: https://drive.google.com/file/d/1EXbrf8zYpJwqpO00MRMh__sAVgHFMOPN/view?usp=sharing
 
 ---
 
